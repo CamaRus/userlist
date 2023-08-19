@@ -25,14 +25,14 @@ const store = new Vuex.Store({
       // Замените 'your-app-id' и 'your-rest-api-key' на реальные значения вашего back4app проекта
       const headers = {
         headers: {
-          "X-Parse-Application-Id": "3v1aZzPytipLS46BOfnMNCJYaR7IEYbUknS4vFJH",
-          "X-Parse-REST-API-Key": "6AMBeXomEScKAJD40KD3UOcaFNhjWnWAtoGxJEmG",
+          "X-Parse-Application-Id": "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
+          "X-Parse-REST-API-Key": "ZWwpgF9OcATXolhPLBVF78ofq7vRrbEqrko7NU7x",
         },
       };
 
       try {
         const response = await axios.get(
-          "https://parseapi.back4app.com/classes/users",
+          "https://parseapi.back4app.com/classes/userlist",
           headers
         );
         commit("setFormData", response.data);
