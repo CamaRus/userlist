@@ -17,6 +17,7 @@
     "jquery": "^3.7.0",
     "kourou": "^0.26.0",
     "kuzzle-sdk": "^7.10.8",
+    "moment": "^2.29.4",
     "parse": "^4.1.0",
     "vee-validate": "^2.2.15",
     "vue": "^2.6.10",

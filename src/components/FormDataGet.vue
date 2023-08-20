@@ -19,8 +19,9 @@
           <td>{{ result.email }}</td>
           <td>{{ result.name }}</td>
           <td>{{ result.password }}</td>
-          <td>{{ result.createdAt }}</td>
-          <td>{{ result.updatedAt }}</td>
+          <!-- <td>{{ result.createdAt }}</td> -->
+          <td>{{ formatDate(result.createdAt) }}</td>
+          <td>{{ formatDate(result.updatedAt) }}</td>
           <td>
             <button @click="openEditModal(index)" class="btn btn-primary">
               РЕДАКТИРОВАТЬ
@@ -97,6 +98,7 @@
 import axios from "axios";
 import { mapState } from "vuex";
 import Parse from "parse";
+import moment from "moment";
 
 export default {
   computed: {
@@ -128,6 +130,12 @@ export default {
 
       // Открываем модальное окно с помощью $bvModal
       this.$bvModal.show("edit-modal");
+    },
+
+    formatDate(date) {
+      const createdAtMoment = moment(date);
+      const formattedDate = createdAtMoment.format("DD.MM.YYYY HH:mm");
+      return formattedDate;
     },
 
     updateFormData() {
