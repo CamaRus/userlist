@@ -7,17 +7,13 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     isDropDownVisible: false,
-    form: [],
+    userlist: [],
   },
 
   mutations: {
     setFormData(state, data) {
-      state.form = data;
+      state.userlist = data;
     },
-
-    // removeFormData(state, index) {
-    //   state.form.splice(index, 1);
-    // },
   },
 
   actions: {

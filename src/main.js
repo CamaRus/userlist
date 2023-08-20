@@ -6,6 +6,13 @@ import "bootstrap/dist/css/bootstrap.css"; // Импорт стилей Bootstra
 import BootstrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
+import Parse from "parse";
+
+Parse.serverURL = "https://parseapi.back4app.com";
+Parse.initialize(
+  "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
+  "FfGasWcXysuSi76kF2ExM26BKZ5A6Jh4c8fgcOJj"
+);
 
 Vue.config.productionTip = false;
 

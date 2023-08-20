@@ -6,8 +6,8 @@
           <th scope="col">Email</th>
           <th scope="col">Name</th>
           <th scope="col">Password</th>
-          <th scope="col">Created At</th>
-          <th scope="col">Updated At</th>
+          <th scope="col">Дата создания</th>
+          <th scope="col">Дата изменения</th>
           <th scope="col"></th>
           <!-- Столбец для кнопки редактирования -->
           <th scope="col"></th>
@@ -15,7 +15,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(result, index) in form.results" :key="index">
+        <tr v-for="(result, index) in userlist.results" :key="index">
           <td>{{ result.email }}</td>
           <td>{{ result.name }}</td>
           <td>{{ result.password }}</td>
@@ -39,7 +39,7 @@
     <!-- Модальное окно для редактирования данных -->
     <b-modal
       id="edit-modal"
-      title="Edit Data"
+      title="РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ"
       class="modal fade"
       ref="editModal"
       tabindex="-1"
@@ -49,20 +49,9 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <!-- <div class="modal-header"> -->
-          <!-- <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button> -->
-          <!-- </div> -->
           <div class="modal-body">
             <!-- Форма для редактирования данных -->
-            <form @submit.prevent="saveEditedData">
+            <form @submit.prevent="updateFormData">
               <div class="form-group">
                 <label for="editEmail">Email</label>
                 <input
@@ -94,7 +83,7 @@
                 />
               </div>
               <button type="submit" class="btn btn-primary">
-                Save Changes
+                СОХРАНИТЬ ИЗМЕНЕНИЯ
               </button>
             </form>
           </div>
@@ -107,10 +96,11 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import Parse from "parse";
 
 export default {
   computed: {
-    ...mapState(["form"]),
+    ...mapState(["userlist"]),
   },
 
   data() {
@@ -119,8 +109,6 @@ export default {
         email: "",
         name: "",
         password: "",
-        // updatedAt: new Date(),
-        // createdAt: new Date(),
       },
     };
   },
@@ -133,56 +121,47 @@ export default {
     this.$store.dispatch("fetchDataFromServer");
   },
 
-  // beforeUpdate() {
-  //   this.$store.dispatch("fetchDataFromServer");
-  // },
-
-  // created() {
-  //   this.$store.dispatch("fetchDataFromServer");
-  // },
-
   methods: {
     openEditModal(index) {
-      const formData = this.form.results[index];
+      const formData = this.userlist.results[index];
       this.editedFormData = { ...formData };
 
       // Открываем модальное окно с помощью $bvModal
       this.$bvModal.show("edit-modal");
     },
 
-    // Сохранить отредактированные данные
-    async saveEditedData() {
-      try {
-        const response = await axios.put(
-          `https://parseapi.back4app.com/classes/userlist/${this.editedFormData.objectId}`,
-          this.editedFormData,
-          {
-            headers: {
-              "X-Parse-Application-Id":
-                "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
-              "X-Parse-REST-API-Key":
-                "ZWwpgF9OcATXolhPLBVF78ofq7vRrbEqrko7NU7x",
-              "Content-Type": "application/json",
-            },
-          }
-        );
+    updateFormData() {
+      const formData = this.editedFormData;
 
-        console.log("Form data updated with back4app:", response.data);
+      const updatedData = {
+        ...formData,
+        // Здесь вы можете изменить какие-либо поля
+      };
 
-        // Обновите состояние Vuex с обновленными данными
-        this.$store.dispatch("fetchDataFromServer");
+      const MyParseClass = Parse.Object.extend("userlist");
+      const query = new Parse.Query(MyParseClass);
 
-        // Сохраните полученные данные в состоянии Vuex
-        this.$store.commit("setFormData", this.editedFormData);
+      query
+        .get(formData.objectId)
+        .then((object) => {
+          // Обновляем поля объекта с обновленными данными
+          Object.keys(updatedData).forEach((key) => {
+            object.set(key, updatedData[key]);
+          });
 
-        this.$bvModal.hide("edit-modal");
-      } catch (error) {
-        console.error("Error updating form data with back4app:", error);
-      }
+          // Сохраняем изменения
+          return object.save();
+        })
+        .then((response) => {
+          console.log("Form data updated with Parse SDK:", response);
+        })
+        .catch((error) => {
+          console.error("Error updating form data with Parse SDK:", error);
+        });
     },
 
     async deleteFormData(index) {
-      const form = this.form.results[index];
+      const form = this.userlist.results[index];
 
       try {
         const response = await axios.delete(
@@ -198,9 +177,6 @@ export default {
         );
 
         console.log("Form data deleted with back4app:", response.data);
-
-        // Обновите состояние Vuex, удалив удаленные данные
-        // this.$store.commit("removeFormData", index);
       } catch (error) {
         console.error("Error deleting form data with back4app:", error);
       }
@@ -208,3 +184,8 @@ export default {
   },
 };
 </script>
+<style>
+table {
+  margin-top: 25px;
+}
+</style>
