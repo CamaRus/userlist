@@ -10,8 +10,8 @@ import Parse from "parse";
 
 Parse.serverURL = "https://parseapi.back4app.com";
 Parse.initialize(
-  "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
-  "FfGasWcXysuSi76kF2ExM26BKZ5A6Jh4c8fgcOJj"
+  "ndsOadIQgsFoirb5cAvvz0VgLGkTKn1y7yQlzDBU",
+  "BG32y5z17y0RLdFyUeJddFfnf72LOHegCed2VMOf"
 );
 
 Vue.config.productionTip = false;

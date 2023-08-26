@@ -178,9 +178,9 @@ export default {
             {
               headers: {
                 "X-Parse-Application-Id":
-                  "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
+                  "ndsOadIQgsFoirb5cAvvz0VgLGkTKn1y7yQlzDBU",
                 "X-Parse-REST-API-Key":
-                  "ZWwpgF9OcATXolhPLBVF78ofq7vRrbEqrko7NU7x",
+                  "CYYbRWsdEWftbz5Tqxhet5a1njrrYd0xlMOiRdES",
               },
             }
           );

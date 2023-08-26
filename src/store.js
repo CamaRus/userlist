@@ -21,8 +21,8 @@ const store = new Vuex.Store({
       // Замените 'your-app-id' и 'your-rest-api-key' на реальные значения вашего back4app проекта
       const headers = {
         headers: {
-          "X-Parse-Application-Id": "tseW1dDWxz2GjgXkFRdl1i9FvJhoaiZFJqIpolU0",
-          "X-Parse-REST-API-Key": "ZWwpgF9OcATXolhPLBVF78ofq7vRrbEqrko7NU7x",
+          "X-Parse-Application-Id": "ndsOadIQgsFoirb5cAvvz0VgLGkTKn1y7yQlzDBU",
+          "X-Parse-REST-API-Key": "CYYbRWsdEWftbz5Tqxhet5a1njrrYd0xlMOiRdES",
         },
       };
 
